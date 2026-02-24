@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Griot — Shopping List</title>
+  <style>
+    :root{
+      --bg:#0b1020; --panel:#0f1730; --text:#eaf0ff; --muted:#a8b3d6; --border:rgba(255,255,255,.10);
+      --accent:#4f7cff; --ok:#22c55e; --radius:12px; --sans:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 var(--sans);}
+    .wrap{max-width:800px;margin:0 auto;padding:24px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{margin:0;font-size:20px;letter-spacing:-.02em}
+    a{color:var(--accent);text-decoration:none}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:12px}
+    .card{border:1px solid var(--border);background:rgba(255,255,255,.04);border-radius:var(--radius);padding:14px}
+    .listItem{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+    .listItem:last-child{border-bottom:none}
+    .listItem input[type=checkbox]{width:16px;height:16px;accent-color:var(--ok)}
+    .listItem .name{flex:1}
+    .listItem .qty{color:var(--muted);font-family:monospace;font-size:13px}
+    .listItem .date{font-size:11px;color:var(--muted)}
+    .addRow{display:flex;gap:8px;margin-top:12px}
+    .addRow input{padding:8px 10px;border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--text);border-radius:8px;outline:none}
+    .addRow button{padding:8px 12px;border:none;background:var(--accent);color:white;border-radius:8px;cursor:pointer}
+    .sub{color:var(--muted);font-size:12px;margin-top:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Shopping List</h1>
+        <div class="muted">Persistent list updated via Griot. <a href="index.html">Back to grocery dashboard</a></div>
+      </div>
+      <div class="muted" id="meta">Loading…</div>
+    </header>
+
+    <div class="card grid">
+      <div class="addRow">
+        <input type="text" id="newName" placeholder="Item (e.g., Milk)" />
+        <input type="text" id="newQty" placeholder="Qty" style="width:70px" />
+        <button id="addBtn">Add</button>
+      </div>
+      <div class="sub">Additions here are local only. To make them permanent, tell Griot (via WhatsApp/Telegram) and I’ll update the live list.</div>
+    </div>
+
+    <div class="card" id="listContainer" style="margin-top:12px">
+      <div class="listItem" data-id="">
+        <input type="checkbox" />
+        <span class="name">Loading items…</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const API = './shopping-list.json';
+  let items = [];
+  const listEl = document.getElementById('listContainer');
+  const metaEl = document.getElementById('meta');
+
+  async function load(){
+    const res = await fetch(API, {cache:'no-store'});
+    if(!res.ok) throw new Error('Failed to load list');
+    items = await res.json();
+    render();
+    metaEl.textContent = `Last updated: ${new Date().toLocaleTimeString()} · ${items.length} items`;
+  }
+
+  function render(){
+    listEl.innerHTML = '';
+    items.forEach((it, idx) => {
+      const div = document.createElement('div');
+      div.className = 'listItem';
+      div.dataset.id = idx;
+      div.innerHTML = `
+        <input type="checkbox" ${it.done ? 'checked' : ''} />
+        <span class="name" style="${it.done?'text-decoration:line-through;opacity:.6':''}">${it.name}</span>
+        <span class="qty">${it.qty || ''}</span>
+        <span class="date">${it.added ? new Date(it.added).toLocaleDateString() : ''}</span>
+      `;
+      div.querySelector('input').addEventListener('change', () => {
+        it.done = div.querySelector('input').checked;
+        render();
+      });
+      listEl.appendChild(div);
+    });
+  }
+
+  document.getElementById('addBtn').addEventListener('click', () => {
+    const name = document.getElementById('newName').value.trim();
+    const qty = document.getElementById('newQty').value.trim();
+    if(name){
+      items.unshift({name, qty, added: Date.now(), done: false});
+      render();
+      document.getElementById('newName').value = '';
+      document.getElementById('newQty').value = '';
+    }
+  });
+
+  load().catch(err => {
+    listEl.innerHTML = `<div class="muted">Failed to load list: ${err.message}</div>`;
+  });
+</script>
+</body>
+</html>

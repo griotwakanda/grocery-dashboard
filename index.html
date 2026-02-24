@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Griot — Grocery Mission Control</title>
+  <style>
+    :root{
+      --bg:#0b1020; --panel:#0f1730; --panel2:#101a38; --text:#eaf0ff; --muted:#a8b3d6;
+      --border:rgba(255,255,255,.10);
+      --accent:#4f7cff; --accent2:#2dd4bf; --danger:#ff4d6d; --warn:#fbbf24; --ok:#22c55e;
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --radius: 18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 700px at 20% -10%, rgba(79,124,255,.28), transparent 55%),
+                      radial-gradient(900px 600px at 110% 10%, rgba(45,212,191,.22), transparent 55%),
+                      radial-gradient(800px 600px at 30% 110%, rgba(255,77,109,.16), transparent 55%),
+                      var(--bg);
+         color:var(--text); font: 14px/1.55 var(--sans);
+    }
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 18px 40px;}
+    header{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:18px}
+    .title{display:flex;flex-direction:column;gap:6px}
+    h1{margin:0;font-size:22px;letter-spacing:-.02em}
+    .sub{color:var(--muted);font-size:12px}
+    .pillrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .pill{border:1px solid var(--border);background:rgba(255,255,255,.06);padding:8px 10px;border-radius:999px;color:var(--muted);font-size:12px}
+    .pill strong{color:var(--text)}
+
+    .grid{display:grid;gap:14px}
+    .kpis{grid-template-columns:repeat(12,minmax(0,1fr));}
+    .card{border:1px solid var(--border);background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+          box-shadow:var(--shadow);border-radius:var(--radius);padding:14px 14px 12px;}
+    .kpi{grid-column:span 3;}
+    .kpi .label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .kpi .value{margin-top:6px;font-size:22px;font-weight:800;letter-spacing:-.02em}
+    .kpi .delta{margin-top:6px;color:var(--muted);font-size:12px}
+    .badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:999px;border:1px solid var(--border);font-size:11px;color:var(--muted);background:rgba(0,0,0,.15)}
+    .dot{width:7px;height:7px;border-radius:999px;background:var(--accent2)}
+
+    .main{grid-template-columns:repeat(12,minmax(0,1fr));}
+    .span7{grid-column:span 7;}
+    .span5{grid-column:span 5;}
+    .span12{grid-column:span 12;}
+
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .sectionTitle h2{margin:0;font-size:14px;letter-spacing:.02em}
+    .sectionTitle .hint{color:var(--muted);font-size:12px}
+
+    /* simple bar chart */
+    .bars{display:grid;gap:10px}
+    .barRow{display:grid;grid-template-columns:140px 1fr 86px;gap:10px;align-items:center}
+    .barRow .name{color:var(--text);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .barRow .amt{color:var(--muted);font-family:var(--mono);text-align:right}
+    .track{height:10px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+    .fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px 10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px}
+    th{color:var(--muted);text-align:left;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    td{color:var(--text)}
+    td.mono{font-family:var(--mono);color:var(--muted)}
+
+    .muted{color:var(--muted)}
+    .warn{color:var(--warn)}
+    .ok{color:var(--ok)}
+
+    .footer{margin-top:14px;color:var(--muted);font-size:11px}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    @media (max-width: 980px){
+      .kpi{grid-column:span 6;}
+      .span7,.span5{grid-column:span 12;}
+      .barRow{grid-template-columns:120px 1fr 78px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">
+        <h1>Griot — Grocery Mission Control</h1>
+        <div class="sub" id="subtitle">Loading data…</div>
+      </div>
+      <div class="pillrow">
+        <div class="pill"><strong>Currency:</strong> CAD</div>
+        <div class="pill"><strong>Store:</strong> <span id="store">All</span></div>
+        <div class="pill"><strong>Receipts:</strong> <span id="rcount">0</span></div>
+      </div>
+    </header>
+
+    <section class="grid kpis">
+      <div class="card kpi">
+        <div class="label">Total spend</div>
+        <div class="value" id="kpiTotal">—</div>
+        <div class="delta" id="kpiTotalNote">All time</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Ultra‑processed</div>
+        <div class="value" id="kpiUP">—</div>
+        <div class="delta" id="kpiUPPct">—</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Produce</div>
+        <div class="value" id="kpiProduce">—</div>
+        <div class="delta muted">Whole-food bias</div>
+      </div>
+      <div class="card kpi">
+        <div class="label">Protein</div>
+        <div class="value" id="kpiProtein">—</div>
+        <div class="delta muted">Build muscle, cut waste</div>
+      </div>
+    </section>
+
+    <section class="grid main" style="margin-top:14px">
+      <div class="card span7">
+        <div class="sectionTitle">
+          <h2>Category spend</h2>
+          <div class="hint">Top categories by $</div>
+        </div>
+        <div id="catBars" class="bars"></div>
+        <div class="footer">Tip: as we ingest more receipts, this becomes a weekly/monthly trend dashboard.</div>
+      </div>
+
+      <div class="card span5">
+        <div class="sectionTitle">
+          <h2>Top items</h2>
+          <div class="hint">Highest total line spend</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Item</th><th>Cat</th><th class="mono">$</th></tr>
+          </thead>
+          <tbody id="topItems"></tbody>
+        </table>
+      </div>
+
+      <div class="card span12">
+        <div class="sectionTitle">
+          <h2>Latest receipts</h2>
+          <div class="hint">Most recent first</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Store</th><th class="mono">Subtotal</th><th class="mono">Tax</th><th class="mono">Total</th></tr>
+          </thead>
+          <tbody id="receiptsTbl"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footer" id="meta"></div>
+  </div>
+
+<script>
+  const fmtCAD = (n) => {
+    if (n == null || Number.isNaN(n)) return '—';
+    return new Intl.NumberFormat('en-CA', { style:'currency', currency:'CAD' }).format(n);
+  };
+
+  function sum(arr){ return arr.reduce((a,b)=>a+(Number(b)||0),0); }
+
+  function groupSum(items, keyFn, valFn){
+    const m = new Map();
+    for (const it of items){
+      const k = keyFn(it);
+      const v = Number(valFn(it)) || 0;
+      m.set(k, (m.get(k)||0)+v);
+    }
+    return [...m.entries()].map(([k,v])=>({k,v})).sort((a,b)=>b.v-a.v);
+  }
+
+  async function load(){
+    // Fetch CSVs
+    const [receiptsCsv, itemsCsv] = await Promise.all([
+      fetch('./receipts.csv', {cache:'no-store'}).then(r=>r.text()),
+      fetch('./line_items.csv', {cache:'no-store'}).then(r=>r.text())
+    ]);
+
+    const parseCsv = (csv) => {
+      const lines = csv.trim().split('\n');
+      const headers = lines[0].split(',').map(h=>h.trim());
+      const rows = [];
+      for(let i=1; i<lines.length; i++){
+        const cols = lines[i].split(',').map(c=>c.trim());
+        const obj = {};
+        headers.forEach((h, idx) => {
+          let val = cols[idx] || '';
+          // Convert numeric fields
+          if(['quantity','unit_price','line_total','subtotal','tax','total'].includes(h)){
+            val = val === '' ? null : Number(val);
+          }
+          // Convert booleans
+          if(['is_discount'].includes(h)){
+            val = (val === 'true');
+          }
+          obj[h] = val;
+        });
+        rows.push(obj);
+      }
+      return rows;
+    };
+
+    const receipts = parseCsv(receiptsCsv);
+    const items = parseCsv(itemsCsv);
+
+    // KPIs
+    const totalSpend = sum(receipts.map(r=>r.total));
+    const upSpend = sum(items.filter(li => (li.tags||'').includes('ultra-processed')).map(li=>li.line_total));
+    const produceSpend = sum(items.filter(li => li.category==='produce').map(li=>li.line_total));
+    const proteinSpend = sum(items.filter(li => li.category==='protein').map(li=>li.line_total));
+
+    document.getElementById('kpiTotal').textContent = fmtCAD(totalSpend);
+    document.getElementById('kpiUP').textContent = fmtCAD(upSpend);
+    const pct = totalSpend ? (upSpend/totalSpend) : 0;
+    document.getElementById('kpiUPPct').textContent = (pct? (pct*100).toFixed(1):'0.0') + '% of spend';
+    document.getElementById('kpiProduce').textContent = fmtCAD(produceSpend);
+    document.getElementById('kpiProtein').textContent = fmtCAD(proteinSpend);
+
+    document.getElementById('rcount').textContent = String(receipts.length);
+
+    // Category bars
+    const cat = groupSum(items.filter(li => li.category && li.category!=='discount' && li.category!=='fee' && li.category!=='deposit'),
+      li => li.category,
+      li => li.line_total
+    ).slice(0,8);
+
+    const maxv = Math.max(1, ...cat.map(x=>x.v));
+    const bars = document.getElementById('catBars');
+    bars.innerHTML = '';
+    for (const row of cat){
+      const div = document.createElement('div');
+      div.className = 'barRow';
+      div.innerHTML = `
+        <div class="name">${row.k}</div>
+        <div class="track"><div class="fill" style="width:${Math.round((row.v/maxv)*100)}%"></div></div>
+        <div class="amt">${fmtCAD(row.v)}</div>
+      `;
+      bars.appendChild(div);
+    }
+
+    // Top items
+    const top = groupSum(items.filter(li => (li.line_total||0) > 0 && li.normalized_item),
+      li => li.normalized_item,
+      li => li.line_total
+    ).slice(0,8);
+
+    const topEl = document.getElementById('topItems');
+    topEl.innerHTML='';
+    for (const t of top){
+      // infer cat from first match
+      const first = items.find(li => li.normalized_item === t.k);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${t.k}</td><td class="muted">${first?.category||''}</td><td class="mono" style="text-align:right">${fmtCAD(t.v)}</td>`;
+      topEl.appendChild(tr);
+    }
+
+    // Receipts table
+    const rtbl = document.getElementById('receiptsTbl');
+    const rs = [...receipts].sort((a,b)=> String(b.date||'').localeCompare(String(a.date||''))).slice(0,10);
+    rtbl.innerHTML='';
+    for (const r of rs){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${r.date||''}</td>
+        <td>${r.store||''}</td>
+        <td class="mono" style="text-align:right">${fmtCAD(r.subtotal)}</td>
+        <td class="mono" style="text-align:right">${fmtCAD(r.tax)}</td>
+        <td class="mono" style="text-align:right">${fmtCAD(r.total)}</td>
+      `;
+      rtbl.appendChild(tr);
+    }
+
+    document.getElementById('subtitle').textContent = `Updated ${new Date().toLocaleString()} · Vancouver · Data source: local CSV`;
+    document.getElementById('meta').innerHTML = `Source: <span class="badge"><span class="dot"></span> receipts.csv + line_items.csv</span> · Auto‑ingest pipeline active.`;
+
+    // store badge
+    const storeSet = new Set(receipts.map(r=>r.store).filter(Boolean));
+    document.getElementById('store').textContent = storeSet.size===1 ? [...storeSet][0] : 'Mixed';
+  }
+
+  load().catch(err => {
+    document.getElementById('subtitle').textContent = 'Failed to load data.';
+    document.getElementById('meta').textContent = String(err);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+receipt_id,date,store,subtotal,tax,total,currency,notes
+r-cb70a682ae,2026-02-21,UNKNOWN,569.41,12.2,581.61,CAD,Receipt photo; store/date not printed in visible section.
+r-24df261a71,2026-02-22,Save-On-Foods,222.54,1.19,223.73,CAD,Parsed from receipt photo; line items best-effort OCR.
+r-fd22b919,2026-02-23,Walmart Maple Ridge (1206),9.60,0.15,9.75,CAD,Partial OCR from crumpled receipt

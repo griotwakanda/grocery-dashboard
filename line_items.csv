@@ -1,0 +1,107 @@
+receipt_id,raw_description,normalized_item,category,quantity,unit_price,line_total,is_discount,tags
+r-cb70a682ae,KS BATH (unknown),bath tissue/paper?,household,1,23.99,23.99,false,paper
+r-cb70a682ae,OAT BEVERAGE,oat milk,dairy-alt,1,11.99,11.99,false,beverage
+r-cb70a682ae,ENVIRO FEE C,enviro fee,fee,1,0.06,0.06,false,fee
+r-cb70a682ae,DEPOSIT CL,deposit,deposit,1,0.3,0.3,false,deposit
+r-cb70a682ae,KS ORG EGGS,eggs,protein,1,13.49,13.49,false,whole-food
+r-cb70a682ae,TIDE ORIGNL,laundry detergent,household,1,29.99,29.99,false,cleaning
+r-cb70a682ae,DOVE MEN BW,body wash,household,1,14.99,14.99,false,hygiene
+r-cb70a682ae,TPD/1955269,discount,discount,1,-3.5,-3.5,true,coupon
+r-cb70a682ae,CASCADE PLUS,dishwasher pods,household,1,29.99,29.99,false,cleaning
+r-cb70a682ae,OIKOS 2X850G,greek yogurt,dairy,1,12.99,12.99,false,protein
+r-cb70a682ae,MEAT LAS 6PK,meat lasagna,prepared,1,14.99,14.99,false,ultra-processed
+r-cb70a682ae,TPD/328466,discount,discount,1,-3.0,-3.0,true,coupon
+r-cb70a682ae,EGG PASTA,egg pasta,carb,1,12.99,12.99,false,processed
+r-cb70a682ae,YAKISOBA,yakisoba,prepared,1,17.99,17.99,false,ultra-processed
+r-cb70a682ae,PIZZA SINGLE,single pizza,prepared,1,18.49,18.49,false,ultra-processed
+r-cb70a682ae,CKN ALFREDO,chicken alfredo,prepared,1,18.99,18.99,false,ultra-processed
+r-cb70a682ae,TPD/1795976,discount,discount,1,-4.0,-4.0,true,coupon
+r-cb70a682ae,BRAZI BITES,brazi bites,snack,2,17.99,35.98,false,ultra-processed
+r-cb70a682ae,STRAWBERRIES,strawberries,produce,1,14.99,14.99,false,whole-food
+r-cb70a682ae,PIZZA MOZ,mozzarella pizza,prepared,1,18.99,18.99,false,ultra-processed
+r-cb70a682ae,TPD/370203,discount,discount,1,-4.0,-4.0,true,coupon
+r-cb70a682ae,KS TILAPIA,tilapia,protein,1,24.99,24.99,false,whole-food
+r-cb70a682ae,CARBONAUT,bread/carbonaute,bakery,1,11.99,11.99,false,processed
+r-cb70a682ae,SKLT GNOCCHI,gnocchi,carb,1,12.99,12.99,false,processed
+r-cb70a682ae,LG PERU,peru (unclear),unknown,1,24.99,24.99,false,
+r-cb70a682ae,VITAFUSION,vitamins,supplement,1,14.99,14.99,false,
+r-cb70a682ae,CHKN STRIPS,chicken strips,prepared,1,24.99,24.99,false,ultra-processed
+r-cb70a682ae,MINESTRONE,minestrone soup,prepared,1,14.99,14.99,false,processed
+r-cb70a682ae,NAAN MINIS,naan minis,bakery,1,6.99,6.99,false,processed
+r-cb70a682ae,SWEETKALEDUO,sweet kale salad kit,produce,1,8.99,8.99,false,processed
+r-cb70a682ae,ORG BEANS,organic beans,pantry,1,7.99,7.99,false,whole-food
+r-cb70a682ae,SMOKED CHED,smoked cheddar,dairy,1,13.49,13.49,false,protein
+r-cb70a682ae,OROWEAT TORT,tortillas,bakery,1,8.79,8.79,false,processed
+r-cb70a682ae,TPD/1614173,discount,discount,1,-2.0,-2.0,true,coupon
+r-cb70a682ae,MARBLE SLICE,marble slab (ice cream?),treat,1,15.99,15.99,false,treat
+r-cb70a682ae,ORG BLUES,organic blueberries,produce,1,11.99,11.99,false,whole-food
+r-cb70a682ae,ULTRA PUR 2%,milk 2%,dairy,1,5.99,5.99,false,
+r-cb70a682ae,ENVIRO FEE C,enviro fee,fee,1,0.07,0.07,false,fee
+r-cb70a682ae,DEPOSIT CL,deposit,deposit,1,0.1,0.1,false,deposit
+r-cb70a682ae,BUTTER 454G,butter,dairy,1,5.69,5.69,false,
+r-cb70a682ae,SLCD TURKEY,sliced turkey,protein,1,21.99,21.99,false,processed
+r-cb70a682ae,BRIOCHE BUN,brioche buns,bakery,1,6.99,6.99,false,processed
+r-cb70a682ae,ORG CHKN BST,organic chicken breast,protein,1,49.72,49.72,false,whole-food
+r-24df261a71,Basil Tomatoes,basil tomatoes,produce,1,6.29,6.29,false,whole-food
+r-24df261a71,Card $4.4 Save,discount,discount,1,-1.8,-1.8,true,save
+r-24df261a71,Boy Grnt Simp Prune,prunes (dried fruit?),pantry,1,3.19,3.19,false,processed
+r-24df261a71,Card 5/$11 Save,discount,discount,1,-1.19,-1.19,true,save
+r-24df261a71,Broccoli Crown,broccoli,produce,1,4.01,4.01,false,whole-food
+r-24df261a71,Brown Basmati Rice,brown basmati rice,pantry,1,1.38,1.38,false,whole-food
+r-24df261a71,Carrots,carrots,produce,1,2.83,2.83,false,whole-food
+r-24df261a71,Cauliflower,cauliflower,produce,1,6.99,6.99,false,whole-food
+r-24df261a71,Corn Starch,corn starch,pantry,1,1.29,1.29,false,processed
+r-24df261a71,Cottage Cheese,cottage cheese,dairy,1,5.15,5.15,false,protein
+r-24df261a71,Crushed Garlic,crushed garlic,pantry,1,8.79,8.79,false,processed
+r-24df261a71,Del Monte Mangoes?,mangoes,produce,1,7.38,7.38,false,whole-food
+r-24df261a71,Card 2/$6 Save,discount,discount,1,-1.38,-1.38,true,save
+r-24df261a71,Deposit,deposit,deposit,1,0.2,0.2,false,deposit
+r-24df261a71,Recycle fee,fee,fee,1,0.06,0.06,false,fee
+r-24df261a71,Eggo Cinn Bun,eggo waffles,snack,1,4.99,4.99,false,ultra-processed
+r-24df261a71,Ext Lean Grd Beef,ground beef (extra lean),protein,1,20.0,20.0,false,whole-food
+r-24df261a71,Green Onion,green onion,produce,1,2.49,2.49,false,whole-food
+r-24df261a71,Hellmans Mayonnaise,mayonnaise,pantry,1,7.49,7.49,false,processed
+r-24df261a71,Card $7.3 Save,discount,discount,1,-0.1,-0.1,true,save
+r-24df261a71,Homo Milk 2L,milk,dairy,1,5.29,5.29,false,
+r-24df261a71,Deposit,deposit,deposit,1,0.1,0.1,false,deposit
+r-24df261a71,Recycle fee,fee,fee,1,0.02,0.02,false,fee
+r-24df261a71,Lipton Pure Leaf Tea,iced tea,beverage,1,3.79,3.79,false,ultra-processed
+r-24df261a71,Card 2/$5.5 Save,discount,discount,1,-1.04,-1.04,true,save
+r-24df261a71,Deposit,deposit,deposit,1,0.1,0.1,false,deposit
+r-24df261a71,Recycle fee,fee,fee,1,0.05,0.05,false,fee
+r-24df261a71,Mangoes,mangoes,produce,1,7.38,7.38,false,whole-food
+r-24df261a71,Card $2.6 Save,discount,discount,1,-2.0,-2.0,true,save
+r-24df261a71,Med Onions,onions,produce,1,4.3,4.3,false,whole-food
+r-24df261a71,Nano Drink Yogurt,drinkable yogurt,dairy,1,20.49,20.49,false,processed
+r-24df261a71,Card $16.29 Save,discount,discount,1,-4.2,-4.2,true,save
+r-24df261a71,Navel Orange,oranges,produce,1,5.11,5.11,false,whole-food
+r-24df261a71,Card $3.2/kg Save,discount,discount,1,-2.57,-2.57,true,save
+r-24df261a71,NP Waffles Homestyle,waffles,snack,1,7.19,7.19,false,ultra-processed
+r-24df261a71,OG Gummy Fish,gummy candy,treat,1,3.49,3.49,false,treat
+r-24df261a71,OG Peanut Butter,peanut butter,pantry,1,7.99,7.99,false,processed
+r-24df261a71,OA Rice Cakes,rice cakes,snack,1,4.89,4.89,false,processed
+r-24df261a71,Realemon,lemon juice,pantry,1,4.19,4.19,false,processed
+r-24df261a71,Red Split Lentils,red split lentils,pantry,1,4.14,4.14,false,whole-food
+r-24df261a71,Robin Hood Flour,flour,pantry,1,6.29,6.29,false,processed
+r-24df261a71,Snickers Spread,snickers spread,treat,1,8.49,8.49,false,treat
+r-24df261a71,Card $6.8 Save,discount,discount,1,-1.8,-1.8,true,save
+r-24df261a71,Srrs Sauce (unclear),sauce (unclear),pantry,1,4.49,4.49,false,processed
+r-24df261a71,Soy Med Frm Tofu,tofu,protein,1,3.99,3.99,false,whole-food
+r-24df261a71,Split Chicken Wings,chicken wings,protein,1,12.05,12.05,false,whole-food
+r-24df261a71,Squash Zucchini,zucchini,produce,1,5.88,5.88,false,whole-food
+r-24df261a71,Tortle Bean,tortilla beans?,pantry,1,7.39,7.39,false,whole-food
+r-24df261a71,WF Coffee Filters,coffee filters,household,1,6.79,6.79,false,paper
+r-24df261a71,Card $4.75 Save,discount,discount,1,-2.0,-2.0,true,save
+r-24df261a71,WF Cream Cheese,cream cheese,dairy,1,3.99,3.99,false,processed
+r-24df261a71,WF Hummus,hummus,prepared,1,4.29,4.29,false,processed
+r-24df261a71,WF Mayo Light,light mayo,pantry,1,6.29,6.29,false,processed
+r-24df261a71,Card $5.4 Save,discount,discount,1,-0.8,-0.8,true,save
+r-24df261a71,WF Mild Salsa,salsa,pantry,1,4.79,4.79,false,processed
+r-24df261a71,WF Potato,potatoes,produce,1,7.84,7.84,false,whole-food
+r-fd22b919,DEL MONTE HA 067311268370,DEL MONTE HA 067311268370,unknown,1,1.96,1.96,False,ocr
+r-fd22b919,BC CRF 400506824980,BC CRF 400506824980,unknown,1,0.03,0.03,False,ocr
+r-fd22b919,BC DEP TET 0 400300569210,BC DEP TET 0 400300569210,unknown,1,0.1,0.1,False,ocr
+r-fd22b919,SR UB 900ML 057961027660,SR UB 900ML 057961027660,unknown,1,2.48,2.48,False,ocr
+r-fd22b919,DEL MONTE PA 067311268280,DEL MONTE PA 067311268280,unknown,1,1.96,1.96,False,ocr
+r-fd22b919,Bc DEPOSIT 078742518590,Bc DEPOSIT 078742518590,unknown,1,0.1,0.1,False,ocr
+r-fd22b919,Sp VS ORIGIN 829515308580 Susan,Sp VS ORIGIN 829515308580 Susan,unknown,1,,,False,ocr

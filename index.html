@@ -104,13 +104,19 @@
 
     .panels {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 20px;
+      width: 100%;
+      align-items: flex-start;
     }
 
     .panel-group {
       display: grid;
       gap: 18px;
+    }
+
+    .panels > .panel-group {
+      width: 100%;
     }
 
     .panel-title {
@@ -157,6 +163,8 @@
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
+      overflow-x: auto;
+      display: block;
     }
 
     th,
